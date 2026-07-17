@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夢日記 崩れる文字版</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    padding: 60px 15%;
+    background: linear-gradient(to bottom, #0b0c2b, #1a1a40);
+    color: #ddd;
+    font-family: 'Patrick Hand', cursive;
+    line-height: 2;
+    overflow-x: hidden;
+    transition: opacity 2s ease, filter 2s ease;
+  }
+
+  
+  body.fade-out {
+    opacity: 0;
+    filter: blur(8px);
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(11,12,43,0.85);
+    border-bottom: 1px solid #333;
+    padding: 10px 15%;
+    box-sizing: border-box;
+    color: #eee;
+    z-index: 10;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.9em;
+    font-weight: normal;
+    letter-spacing: 0.09em;
+  }
+
+  main {
+    margin-top: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  article {
+    margin-bottom: 71px;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+  }
+
+  h2 {
+    font-size: 2.2em;
+    color: #aaa;
+    margin-bottom: 1.9em;
+    font-weight: normal;
+  }
+
+  p {
+    font-size: 1.4em;
+    margin: 0.5em;
+  }
+
+  span {
+    display: inline-block;
+    opacity: 1;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+  }
+
+  span.disintegrate {
+    animation: disintegrate 4s forwards; /* 4秒でゆっくり崩れる */
+  }
+
+  @keyframes disintegrate {
+    0% {
+      transform: translate(0,0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(calc(-50px + 100px*var(--randX)), calc(-50px + 100px*var(--randY))) rotate(calc(-45deg + 90deg*var(--randRot))) scale(0.5);
+      opacity: 0;
+    }
+  }
+
+  button.back {
+    display: inline-block;
+    margin-top: 30px;
+    color: #ccc;
+    background: none;
+    border: 1px solid #555;
+    padding: 6px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  button.back:hover {
+    background: #444;
+    color: #fff;
+  }
+
+  footer {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0.8em;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>同化</h1>
+</header>
+
+<main>
+<article>
+  <h2>７日目</h2>
+  <p class="diary-text">１９４２が鏡を拭く。</p>
+  <p class="diary-text">曇りが取れない。</p>
+  <p class="diary-text">表面が白く濁る。</p>
+  <p class="diary-text">触れた指がわずかに沈む。</p>
+  <p class="diary-text">午後、外界が無音化。</p>
+  <p class="diary-text">霧。風なし。</p>
+  <p class="diary-text">針の音のみ、こちら側に残る。</p>
+  <p class="diary-text">夜、１９４２が日記を記録。</p>
+  <p class="diary-text">手の動きが遅い。</p>
+  <p class="diary-text">呼吸が浅い。</p>
+  <p class="diary-text">筆跡が変形し、最後の行で私の文字に置き換わる。</p>
+  <p class="diary-text">「でも今日という日が静かに始まっている。」</p>
+  <p class="diary-text">──同化完了。</p>
+  <p class="diary-text">境界、閉鎖。</p>
+  <p class="diary-text">１９４２、吸収。</p>
+  <p class="diary-text">私は今も、彼女の部屋で光を返している。</p>
+  <p class="diary-text">呼吸のない彼女を映しながら。</p>
+</article>
+
+<button class="back" id="nextButton"
+  onclick="location.href='81.html'">
+  記録完了
+</button>
+</main>
+
+<footer>
+  &copy; １９４２
+</footer>
+
+<script>
+document.querySelectorAll('.diary-text').forEach(p => {
+  const text = p.textContent;
+  p.textContent = '';
+  text.split('').forEach(char => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    span.style.setProperty('--randX', Math.random());
+    span.style.setProperty('--randY', Math.random());
+    span.style.setProperty('--randRot', Math.random());
+    p.appendChild(span);
+  });
+});
+
+const allSpans = document.querySelectorAll('.diary-text span');
+let index = 0;
+
+function disintegrateNext() {
+  if(index < allSpans.length){
+    allSpans[index].classList.add('disintegrate');
+    index++;
+    setTimeout(disintegrateNext, 80); 
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(disintegrateNext, 1000);
+});
+
+
+document.getElementById('nextButton').addEventListener('click', () => {
+  document.body.classList.add('fade-out');
+  setTimeout(() => {
+    window.location.href = '11.html';
+  }, 2000); 
+});
+</script>
+
+</body>
+</html>
