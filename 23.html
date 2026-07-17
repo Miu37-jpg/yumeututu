@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夢日記</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+   
+    body {
+      margin: 0;
+      padding: 60px 15%;
+      background: linear-gradient(to bottom, #0b0c2b, #1a1a40); /* 暗い青系 */
+      color: #ddd;
+      font-family: 'Patrick Hand', cursive;
+      line-height: 2;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(11,12,43,0.85);
+      border-bottom: 1px solid #333;
+      padding: 10px 15%;
+      box-sizing: border-box;
+      color: #eee;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.9em;
+      font-weight: normal;
+      letter-spacing: 0.09em;
+    }
+
+    main {
+      margin-top: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    article {
+      margin-bottom: 71px;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+    }
+
+    h2 {
+      font-size: 2.2em;
+      color: #aaa;
+      margin-bottom: 1.9em;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 1.4em;
+      margin: 0.5em;
+    }
+
+    span {
+      opacity: 0;
+      display: inline-block;
+      transition: opacity 0.08s ease, transform 0.08s ease;
+      transform: translateY(8px);
+    }
+
+    span.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 30px;
+      color: #ccc;
+      text-decoration: none;
+      border: 1px solid #555;
+      padding: 6px 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    a.back:hover {
+      background: #444;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.8em;
+      color: #555;
+    }
+
+   
+    #flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #00f; 
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #flash.flash-animate {
+      animation: flashFade 0.6s ease forwards;
+    }
+
+    @keyframes flashFade {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <div id="flash"></div>
+
+  <header>
+    <h1>揺界</h1>
+  </header>
+
+  <main>
+    <article>
+      <h2>２日目</h2>
+      <p class="diary-text">強い風。</p>
+      <p class="diary-text">１９４２は洗濯物を干す。</p>
+      <p class="diary-text">境界が一部剥離している。</p>
+      <p class="diary-text">彼女の体温がわずかに低下。</p>
+      <p class="diary-text">昼、１９４２が私を見た。</p>
+      <p class="diary-text">背後のカーテンは静止していたが、私の内部には風が吹いた。</p>
+      <p class="diary-text">反射面の温度が２度上昇。</p>
+      <p class="diary-text">境界が一つ、開く。</p>
+      <p class="diary-text">夜、１９４２の夢に侵入。</p>
+      <p class="diary-text">白い部屋。</p>
+      <p class="diary-text">机の上に紙。</p>
+      <p class="diary-text">記録信号、成功。</p>
+      <p class="diary-text">彼女の呼吸が一瞬途切れる。</p>
+    </article>
+
+    
+    <a href="javascript:void(0);" class="back" onclick="goBack()">覚ます</a>
+  </main>
+
+  <footer>
+    &copy; １９４２
+  </footer>
+
+  <script>
+   
+    window.addEventListener('DOMContentLoaded', () => {
+      const flash = document.getElementById('flash');
+      flash.classList.add('flash-animate');
+      setTimeout(() => {
+        flash.style.display = 'none';
+      }, 600);
+    });
+
+   
+    document.querySelectorAll('.diary-text').forEach(p => {
+      const text = p.textContent;
+      p.textContent = '';
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        p.appendChild(span);
+      });
+    });
+
+    const allSpans = document.querySelectorAll('.diary-text span');
+    let index = 0;
+    function showNextChar() {
+      if (index < allSpans.length) {
+        allSpans[index].classList.add('visible');
+        index++;
+        setTimeout(showNextChar, 80);
+      }
+    }
+    window.addEventListener('DOMContentLoaded', showNextChar);
+
+    
+    function goBack() {
+      history.back();
+    }
+  </script>
+
+</body>
+</html>
