@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diary</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 60px 15%;
+      background: #ffffff; 
+      color: #333333;      
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      line-height: 1.8;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid #ddd;
+      padding: 10px 15%;
+      box-sizing: border-box;
+      z-index: 10; 
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.9em;
+      font-weight: normal;
+      letter-spacing: 0.09em;
+    }
+
+    main {
+      margin-top: 50px; 
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    article {
+      margin-bottom: 71px;
+    }
+
+    h2 {
+      font-size: 2.2em;
+      color: #555;
+      margin-bottom: 1.9em;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 1.4em;
+      margin: 0.5em;
+    }
+
+    
+    span {
+      opacity: 0;
+      display: inline-block;
+      transition: opacity 0.05s ease;
+    }
+
+    span.visible {
+      opacity: 1;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.8em;
+      color: #aaa;
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 30px;
+      color: #333;
+      text-decoration: none;
+      border: 1px solid #333;
+      padding: 6px 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    a.back:hover {
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>７日目</h1>
+  </header>
+
+  <main>
+    <article>
+      <h2>10月12日（木）</h2>
+      <p class="diary-text">朝、鏡が曇っていた。</p>
+      <p class="diary-text">拭いても、すぐに白く戻る。</p>
+      <p class="diary-text">その曇りの中で、何かが微かに動いた。</p>
+      <p class="diary-text">午後、外は霧のように白く、音がない。</p>
+      <p class="diary-text">時間が止まったように静か。</p>
+      <p class="diary-text">鳥も風も、世界も。</p>
+      <p class="diary-text">夜、日記を書こうとして、ペンが止まった。</p>
+      <p class="diary-text">自分の字が少しずつ変わっていく。</p>
+      <p class="diary-text">誰かが上からなぞっているように。</p>
+      <p class="diary-text">視界が白く滲んで、音が遠のく。</p>
+      <p class="diary-text">でも、私はまだ、ここにいる。</p>
+      <p class="diary-text">鏡の中で、もうひとりの私が静かにこちらを見ている。</p>
+      <p class="diary-text">そして、──でも今日という日が静かに始まっている。</p>
+    </article>
+
+    <a href="81.html" class="back">日記を閉じる</a>
+  </main>
+
+  <footer>
+    &copy; １９４２
+  </footer>
+
+  <script>
+    
+    document.querySelectorAll('.diary-text').forEach(p => {
+      const text = p.textContent;
+      p.textContent = '';
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        p.appendChild(span);
+      });
+    });
+
+    
+    const allSpans = document.querySelectorAll('.diary-text span');
+    let index = 0;
+
+    function showNextChar() {
+      if (index < allSpans.length) {
+        allSpans[index].classList.add('visible');
+        index++;
+        setTimeout(showNextChar, 50); 
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', showNextChar);
+  </script>
+
+</body>
+</html>
