@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>私の日記</title>
+  <style>
+    
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: linear-gradient(120deg, #000428, #004e92);
+      font-family: "Noto Serif JP", serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    
+    h1 {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+    }
+
+    
+    .button-group {
+      display: flex;
+      flex-direction: row; 
+      gap: 30px;
+      margin-left: 6%;
+    }
+
+    
+    .next-btn {
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      letter-spacing: 0.1em;
+    }
+
+    .next-btn:hover {
+      background: white;
+      color: #004e92;
+      transform: scale(1.05);
+    }
+
+    
+    .top-links {
+      position: absolute;
+      top: 25px;
+      right: 40px;
+      display: flex;
+      gap: 35px;
+    }
+
+    .link-btn {
+      position: relative;
+      font-size: 1rem;
+      color: #ffffffcc;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.3s ease;
+    }
+
+    .link-btn::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 1px;
+      background: white;
+      transition: width 0.4s ease;
+      opacity: 0.8;
+    }
+
+    .link-btn:hover {
+      color: #fff;
+    }
+
+    .link-btn:hover::after {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>私の日記</h1>
+
+  
+  <div class="button-group">
+    <button class="next-btn" onclick="goNext('13.html')">/?</button>
+    <button class="next-btn" onclick="goNext('23.html')">*#</button>
+    <button class="next-btn" onclick="goNext('33.html')">$:</button>
+    <button class="next-btn" onclick="goNext('43.html')">;!</button>
+    <button class="next-btn" onclick="goNext('53.html')">-\</button>
+    <button class="next-btn" onclick="goNext('63.html')">%^</button>
+    <button class="next-btn" onclick="goNext('72.html')">書く</button>
+  </div>
+
+  
+  <div class="top-links">
+    <a href="index.html" class="link-btn">initial</a>
+    <a href="concept.html" class="link-btn">concept</a>
+    <a href="11.html" class="link-btn">diary</a>
+  </div>
+
+  <script>
+    function goNext(url) {
+      window.location.href = url;
+    }
+  </script>
+
+</body>
+</html>
