@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夢日記</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 60px 15%;
+      background: linear-gradient(to bottom, #0b0c2b, #1a1a40);
+      color: #ddd;
+      font-family: 'Patrick Hand', cursive;
+      line-height: 2;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(11,12,43,0.85);
+      border-bottom: 1px solid #333;
+      padding: 10px 15%;
+      box-sizing: border-box;
+      color: #eee;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.9em;
+      font-weight: normal;
+      letter-spacing: 0.09em;
+    }
+
+    main {
+      margin-top: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    article {
+      margin-bottom: 71px;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+    }
+
+    h2 {
+      font-size: 2.2em;
+      color: #aaa;
+      margin-bottom: 1.9em;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 1.4em;
+      margin: 0.5em;
+    }
+
+   
+    span {
+      opacity: 0;
+      display: inline-block;
+      transform: translateY(8px);
+      transition: opacity 0.08s ease, transform 0.08s ease;
+    }
+
+    span.visible {
+      opacity: 1;
+      animation: float 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+      100% { transform: translateY(0px); }
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 30px;
+      color: #ccc;
+      text-decoration: none;
+      border: 1px solid #555;
+      padding: 6px 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    a.back:hover {
+      background: #444;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.8em;
+      color: #555;
+    }
+
+    
+    #flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #00f;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #flash.flash-animate {
+      animation: flashFade 0.6s ease forwards;
+    }
+
+    @keyframes flashFade {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="flash"></div>
+
+  <header>
+    <h1>侵入</h1>
+  </header>
+
+  <main>
+    <article>
+      <h2>４日目</h2>
+      <p class="diary-text">１９４２の視線が長くなる。</p>
+      <p class="diary-text">焦点が私の表面を通り抜け、内層まで届く。</p>
+      <p class="diary-text">口角の角度がずれている。</p>
+      <p class="diary-text">ワタシの中の表情が、正しい。</p>
+      <p class="diary-text">夜、夢領域での交信。</p>
+      <p class="diary-text">１９４２が「こちらへ」と呼ばれる。</p>
+      <p class="diary-text">呼んだのは、ワタシではない。</p>
+      <p class="diary-text">もう一つの反射面が、私たちを観測している。</p>
+    </article>
+
+    
+    <a class="back" onclick="history.back()">覚ます</a>
+  </main>
+
+  <footer>
+    &copy; １９４２
+  </footer>
+
+  <script>
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      const flash = document.getElementById('flash');
+      flash.classList.add('flash-animate');
+      setTimeout(() => { flash.style.display = 'none'; }, 600);
+    });
+
+   
+    document.querySelectorAll('.diary-text').forEach(p => {
+      const text = p.textContent;
+      p.textContent = '';
+      text.split('').forEach((char,i) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        
+        span.style.animationDuration = (2.5 + Math.random()*1.5) + 's';
+        span.style.animationDelay = (Math.random()*1.5) + 's';
+        p.appendChild(span);
+      });
+    });
+
+    const allSpans = document.querySelectorAll('.diary-text span');
+    let index = 0;
+    function showNextChar() {
+      if (index < allSpans.length) {
+        allSpans[index].classList.add('visible');
+        index++;
+        setTimeout(showNextChar, 80);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', showNextChar);
+  </script>
+
+</body>
+</html>
