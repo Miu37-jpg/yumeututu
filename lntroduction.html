@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夢うつつ</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      background: #0d0d0d;
+      color: #e0e0e0;
+      font-family: 'Noto Serif JP', serif;
+      overflow-x: hidden;
+      line-height: 2.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* =====================
+       セクション共通
+    ===================== */
+    .dream-section {
+      min-height: 120vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10vh 10vw;
+      font-size: 1.3rem;
+      white-space: pre-line;
+      transition: filter 1s ease, opacity 1s ease, transform 1.2s ease;
+    }
+
+    /* =====================
+       最初の一文（sticky）
+    ===================== */
+    .dream-section.intro {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      z-index: 2;
+      background: #0d0d0d;
+      transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
+    }
+
+    /* =====================
+       フッター（最前面）
+    ===================== */
+    footer {
+      position: relative;     /* ← 重要 */
+      z-index: 5;             /* ← introより前に出す */
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #888;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      pointer-events: auto;   /* ← 念のため */
+    }
+
+    footer.visible {
+      opacity: 1;
+    }
+
+    .button-container {
+      margin-top: 2rem;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-button {
+      background: transparent;
+      color: #e0e0e0;
+      border: 1px solid #555;
+      padding: 0.6rem 2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background: #e0e0e0;
+      color: #0d0d0d;
+      border-color: #e0e0e0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="dream-section intro">
+    呼吸を合わせるように。<br>
+    少しずつ、下へ。
+  </section>
+
+  <section class="dream-section">
+    「imperfection」<br>「不完全性」
+  </section>
+
+  <section class="dream-section">
+    不完全とは完全でないこと。<br>
+    じゃあ完全とは何だろう。<br>
+    まず、この世界を完全だと定義しよう。
+  </section>
+
+  <section class="dream-section">
+    私たちの日常は、<br>
+    声を聴き<br>
+    ものに触れ<br>
+    目で情報を取り入れ<br>
+    香りを嗅ぎ<br>
+    食事をすることを<br>
+    当たり前のように行っている。
+  </section>
+
+  <section class="dream-section">
+    その全てが消えた「夢」の世界についてはどうだろう。<br>
+    音がなく、何も感じることのできない暗闇の世界。
+  </section>
+
+  <section class="dream-section">
+    それは私たちにとって、不完全だといえるのではないだろうか。
+  </section>
+
+  <section class="dream-section">
+    もしも現実と夢を隔てているものが崩れてしまったら<br>
+    あなたはどのように現実と夢を区別しますか？
+  </section>
+
+  <footer id="footer">
+    ─ 記録開始 ─
+    <div class="button-container">
+      <button class="nav-button" onclick="location.href='concept.html'">concept</button>
+      <button class="nav-button" onclick="location.href='11.html'">diary</button>
+    </div>
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.dream-section');
+    const footer = document.getElementById('footer');
+
+    const handleScroll = () => {
+      const vh = window.innerHeight;
+      const scrollY = window.scrollY;
+      const docH = document.body.scrollHeight;
+
+      sections.forEach((sec, index) => {
+
+        /* ===== 最初の一文 ===== */
+        if (index === 0) {
+          const fadeStart = vh * 0.25;
+          const fadeEnd   = vh * 0.9;
+
+          if (scrollY <= fadeStart) {
+            sec.style.opacity = 1;
+            sec.style.filter = 'blur(0px)';
+            sec.style.transform = 'translateY(0)';
+            return;
+          }
+
+          const p = Math.min(
+            (scrollY - fadeStart) / (fadeEnd - fadeStart),
+            1
+          );
+
+          sec.style.opacity = 1 - p;
+          sec.style.filter = `blur(${p * 5}px)`;
+          sec.style.transform = `translateY(-${p * 80}px)`;
+          return;
+        }
+
+        /* ===== それ以降 ===== */
+        const rect = sec.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const distance = Math.abs(vh / 2 - center);
+        const progress = Math.min(distance / (vh / 2), 1);
+
+        sec.style.opacity = 1 - progress * 0.8;
+        sec.style.filter = `blur(${progress * 8}px)`;
+        sec.style.transform = `translateY(${progress * 20}px)`;
+      });
+
+      /* ===== footer 表示 ===== */
+      if (scrollY + vh >= docH - 50) {
+        footer.classList.add('visible');
+      } else {
+        footer.classList.remove('visible');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+  </script>
+
+</body>
+</html>
