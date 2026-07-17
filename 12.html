@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diary</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff; 
+      color: #333333;       
+      font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+      line-height: 1.8;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid #ddd;
+      padding: 10px 15%;
+      box-sizing: border-box;
+      z-index: 100; 
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.9em;
+      font-weight: normal;
+      letter-spacing: 0.09em;
+    }
+
+    main {
+      margin-top: 50px; 
+      padding: 0 15%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    article {
+      margin-bottom: 71px;
+    }
+
+    h2 {
+      font-size: 2.2em;
+      color: #555;
+      margin-bottom: 1.9em;
+      font-weight: normal;
+    }
+
+    p {
+      font-size: 1.4em;
+      margin: 0.5em;
+    }
+
+   
+    span {
+      opacity: 0;
+      display: inline-block;
+      transition: opacity 0.05s ease;
+    }
+
+    span.visible {
+      opacity: 1;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.8em;
+      color: #aaa;
+      padding-bottom: 40px;
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 30px;
+      color: #333;
+      text-decoration: none;
+      border: 1px solid #333;
+      padding: 6px 20px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    a.back:hover {
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>１日目</h1>
+  </header>
+
+  <main>
+    <article>
+      <h2>10月6日（月）</h2>
+      <p class="diary-text">朝、目覚ましが鳴る前に目が覚めた。</p>
+      <p class="diary-text">窓の外は曇り空で、世界がまだ動き出していないような静けさ。</p>
+      <p class="diary-text">洗濯をして、トースターを焼き、コーヒーを淹れる。</p>
+      <p class="diary-text">いつも通りのはずなのに、スプーンが一度だけ勝手に揺れた。</p>
+      <p class="diary-text">ノートの余白に知らない数字が書かれていた。</p>
+      <p class="diary-text">前に書いた覚えはないけど、たぶん自分だろう。</p>
+      <p class="diary-text">夕方、駅前の時計が19時42分で止まっていた。</p>
+      <p class="diary-text">ほんの少しの間だけ、世界が固まった気がした。</p>
+    </article>
+
+    <a href="21.html" class="back">日記を閉じる</a>
+  </main>
+
+  <footer>
+    &copy; １９４２
+  </footer>
+
+  <script>
+   
+    document.querySelectorAll('.diary-text').forEach(p => {
+      const text = p.textContent;
+      p.textContent = '';
+      text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        p.appendChild(span);
+      });
+    });
+
+   
+    const allSpans = document.querySelectorAll('.diary-text span');
+    let index = 0;
+
+    function showNextChar() {
+      if (index < allSpans.length) {
+        allSpans[index].classList.add('visible');
+        index++;
+        setTimeout(showNextChar, 50); 
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', showNextChar);
+  </script>
+
+</body>
+</html>
