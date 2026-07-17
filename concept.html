@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夢現 ─ 白背景コンセプトページ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300&display=swap" rel="stylesheet">
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Noto Serif JP', serif;
+  background: #f8f8f8;
+  color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 140%;
+  height: 140%;
+  background: linear-gradient(
+    115deg,
+    rgba(100, 150, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.7) 40%,
+    rgba(255, 220, 120, 0.5) 70%,
+    rgba(180, 200, 255, 0.45) 100%
+  );
+  filter: blur(8px);
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle at 60% 40%, rgba(255,120,180,0.25) 0%, transparent 60%),
+              radial-gradient(circle at 20% 80%, rgba(120,255,180,0.2) 0%, transparent 60%);
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  filter: blur(5px);
+  z-index: 0;
+}
+
+
+#concept {
+  text-align: center;
+  max-width: 800px;
+  padding: 30px 20px;
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 3s ease forwards;
+  z-index: 2;
+}
+
+#concept p {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  margin: 1em 0;
+  color: #1a1a1a;
+  text-shadow:
+    0 0 2px #ccc,
+    1px 1px 2px #bbb,
+    -1px -1px 1px #aaa;
+  transition: text-shadow 1.5s ease, color 2s ease;
+}
+
+#concept p:hover {
+  color: #000;
+  text-shadow:
+    0 0 5px #fff,
+    2px 2px 6px rgba(150,150,150,0.5),
+    -2px -2px 3px rgba(180,180,180,0.4);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+.top-links {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  display: flex;
+  gap: 35px;
+  z-index: 3;
+}
+
+.link-btn {
+  position: relative;
+  font-size: 1rem;
+  color: #444;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: color 0.3s ease;
+}
+
+.link-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 1px;
+  background: #444;
+  transition: width 0.4s ease;
+  opacity: 0.8;
+}
+
+.link-btn:hover {
+  color: #000;
+}
+
+.link-btn:hover::after {
+  width: 100%;
+}
+</style>
+</head>
+<body>
+
+<div class="top-links">
+  <a href="index.html" class="link-btn">intro</a>
+  <a href="11.html" class="link-btn">concept</a>
+  <a href="11.html" class="link-btn">diary</a>
+</div>
+
+<div id="concept">
+  <p>＜コンセプト＞</p>
+  <p>この世界を完全と定義すると、現実＝完全　夢＝不完全　だと思う。</p>
+  <p>でも、頭の中で作り出した理想を完全だとすると、</p>
+  <p>夢＝完全　現実＝不完全　だと言える。</p>
+  <p>現実も、夢も、完全で、不完全だ。</p>
+  <p>だからこそ、現実と夢の間の世界「夢現」こそが</p>
+  <p>１番不完全なのではないかと考えた。</p>
+  <p>このwebに載せられた１人の人間の日記を通して</p>
+  <p>「夢現」の世界を実体験して欲しい。</p>
+</div>
+
+</body>
+</html>
